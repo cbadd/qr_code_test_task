@@ -62,7 +62,7 @@ class ScannerViewController: UIViewController {
         super.viewDidLoad()
 
         guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
-            print("failed to access camera")
+            print("ошибка доступа к камере")
             return
         }
         
@@ -81,15 +81,15 @@ class ScannerViewController: UIViewController {
             
             captureSession.startRunning()
             
+            //веведем наверх view с полупрозрачным темным фоном и кнопкой отмены
             view.bringSubviewToFront(stuffView)
             
+            //добавим желтую рамку вокруг QR-кода. Здесь зададим ее размер 0, при распознавании QR-кода, будем менять размер рамки и она будет его обрамлять
             qrcodeFrameView = UIView()
             qrcodeFrameView?.layer.borderColor = UIColor.yellow.cgColor
             qrcodeFrameView?.layer.borderWidth = 2
             view.addSubview(qrcodeFrameView!)
             view.bringSubviewToFront(qrcodeFrameView!)
-            
-            
         } catch {
             print(error)
             return
